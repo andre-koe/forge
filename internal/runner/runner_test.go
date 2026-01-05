@@ -80,7 +80,6 @@ func TestNewRunner(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			_, err := NewRunner(tt.path, tt.opts...)
 			runner, err := NewRunner(tt.path, tt.opts...)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("NewRunner() error = %v, wantErr %v", err, tt.wantErr)

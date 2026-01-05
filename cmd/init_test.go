@@ -47,7 +47,7 @@ func TestRunWriteTemplate(t *testing.T) {
 			if err := os.Chdir(tmpDir); err != nil {
 				t.Fatalf("failed to change to temp dir: %v", err)
 			}
-			defer os.Chdir(originalWd)
+			defer func() { _ = os.Chdir(originalWd) }()
 
 			// Setup: create existing file if needed
 			if tt.setupFile {
@@ -144,7 +144,7 @@ func TestMakeInitCmd(t *testing.T) {
 			if err := os.Chdir(tmpDir); err != nil {
 				t.Fatalf("failed to change to temp dir: %v", err)
 			}
-			defer os.Chdir(originalWd)
+			defer func() { _ = os.Chdir(originalWd) }()
 
 			// Setup: create existing file if needed
 			if tt.setupFile && len(tt.args) > 0 {
@@ -184,7 +184,7 @@ func TestMakeInitCmd_Integration(t *testing.T) {
 	if err := os.Chdir(tmpDir); err != nil {
 		t.Fatalf("failed to change to temp dir: %v", err)
 	}
-	defer os.Chdir(originalWd)
+	defer func() { _ = os.Chdir(originalWd) }()
 
 	customFileName := "integration-test.yml"
 
@@ -260,7 +260,7 @@ func TestRunWriteTemplate_EmptyFileName(t *testing.T) {
 	if err := os.Chdir(tmpDir); err != nil {
 		t.Fatalf("failed to change to temp dir: %v", err)
 	}
-	defer os.Chdir(originalWd)
+	defer func() { _ = os.Chdir(originalWd) }()
 
 	// Empty file name should use default
 	err := runWriteTemplate("")
@@ -285,7 +285,7 @@ func TestRunWriteTemplate_PermissionError(t *testing.T) {
 	if err := os.Chdir(tmpDir); err != nil {
 		t.Fatalf("failed to change to temp dir: %v", err)
 	}
-	defer os.Chdir(originalWd)
+	defer func() { _ = os.Chdir(originalWd) }()
 
 	// Create a directory with no write permissions
 	readOnlyDir := filepath.Join(tmpDir, "readonly")
