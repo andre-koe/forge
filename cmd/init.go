@@ -5,6 +5,8 @@ package cmd
 
 import (
 	"errors"
+	"fmt"
+	"io"
 	"os"
 
 	"github.com/andre-koe/forge/internal/dsl"
@@ -18,7 +20,7 @@ var (
 	errWriteFailed = errors.New("failed to write template file")
 )
 
-func runWriteTemplate(fileName string) error {
+func runWriteTemplate(fileName string, out io.Writer) error {
 	if fileName == "" {
 		fileName = defaultFileName
 	}
@@ -32,6 +34,8 @@ func runWriteTemplate(fileName string) error {
 	if err != nil {
 		return errWriteFailed
 	}
+
+	fmt.Fprintf(out, "Template workflow file created: %s\n", fileName)
 	return nil
 }
 
@@ -44,9 +48,9 @@ If a file with the specified name already exists, it will not be overwritten.`,
 		Args: cobra.MaximumNArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			if len(args) == 0 {
-				return runWriteTemplate("")
+				return runWriteTemplate("", cmd.OutOrStdout())
 			}
-			return runWriteTemplate(args[0])
+			return runWriteTemplate(args[0], cmd.OutOrStdout())
 		},
 	}
 }

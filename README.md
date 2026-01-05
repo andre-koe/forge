@@ -1,5 +1,11 @@
 # Forge
 
+[![CI](https://github.com/andre-koe/forge/actions/workflows/ci.yml/badge.svg)](https://github.com/andre-koe/forge/actions/workflows/ci.yml)
+[![Go Report Card](https://goreportcard.com/badge/github.com/andre-koe/forge)](https://goreportcard.com/report/github.com/andre-koe/forge)
+[![License](https://img.shields.io/github/license/andre-koe/forge)](LICENSE)
+[![GitHub release](https://img.shields.io/github/v/release/andre-koe/forge)](https://github.com/andre-koe/forge/releases/latest)
+[![Docker](https://img.shields.io/badge/docker-ghcr.io-blue)](https://github.com/andre-koe/forge/pkgs/container/forge)
+
 Forge is a CLI tool to package and run internal scripts and tools as structured workflows.
 
 It focuses on **reproducible execution**, **clear workflow definitions**, and a **human-centric CLI**.
@@ -7,6 +13,9 @@ Forge is designed to start locally and evolve into a more complete orchestration
 
 > **Status:** early-stage / pre-MVP.
 > The current focus is a minimal, stable CLI and workflow execution model.
+
+
+![Forge Demo](docs/demo.gif)
 
 ---
 
@@ -127,10 +136,95 @@ prints the execution plan without running steps
 
 ---
 
+## Docker Usage
+
+### Run workflows in a container
+
+```bash
+# Using the latest release
+docker run -v $(pwd):/workspace ghcr.io/andre-koe/forge:latest run /workspace/workflow.yaml
+
+# Specific version
+docker run -v $(pwd):/workspace ghcr.io/andre-koe/forge:0.1.0 run /workspace/workflow.yaml
+
+# Create an alias for convenience
+alias forge='docker run -v $(pwd):/workspace ghcr.io/andre-koe/forge:latest'
+forge run workflow.yaml
+```
+
+### Build your own image
+
+```bash
+docker build -t forge:dev .
+docker run -v $(pwd):/workspace forge:dev run /workspace/workflow.yaml
+```
+
+---
+
 ## Development
 
-- See the Makefile for build, test, lint, coverage, Docker, etc.
-- Version, build time, and commit are set automatically via Git.
+### Prerequisites
+
+- Go 1.24 or higher
+- Make (optional, but recommended)
+- Docker (for container builds)
+
+### Building
+
+```bash
+# Build for current platform
+make build
+
+# Build for all platforms (Linux, macOS, Windows)
+make build-all
+
+# Run tests
+make test
+
+# Run tests with coverage
+make test-coverage
+
+# Run linter
+make lint
+
+# Format code
+make fmt
+```
+
+See the [CONTRIBUTING.md](CONTRIBUTING.md) for detailed development setup including pre-commit hooks.
+
+### Project Structure
+
+```
+forge/
+├── cmd/               # CLI commands
+│   ├── forge/        # Main entry point
+│   ├── run.go        # Run command
+│   ├── dry_run.go    # Dry-run command
+│   ├── init.go       # Init command
+│   └── version.go    # Version command
+├── internal/
+│   ├── dsl/          # Workflow DSL definitions
+│   └── runner/       # Workflow execution engine
+├── config/           # Configuration handling
+└── workflows/        # Example workflows
+```
+
+---
+
+## Creating a Demo GIF
+
+Want to add a demo to this README? Here's how:
+
+1. Install [asciinema](https://asciinema.org/): `brew install asciinema` or `apt install asciinema`
+2. Record a session:
+   ```bash
+   asciinema rec demo.cast
+   ./bin/forge run workflow.yaml
+   # Press Ctrl+D when done
+   ```
+3. Convert to GIF using [agg](https://github.com/asciinema/agg) or upload to asciinema.org
+4. Add to README: `![Forge Demo](docs/demo.gif)`
 
 ---
 
@@ -138,7 +232,7 @@ prints the execution plan without running steps
 
 - The CLI is based on [Cobra](https://github.com/spf13/cobra).
 - Workflows are described in YAML.
-- VSCode and GoLand are supported via .gitignore.
+- Version, build time, and commit are set automatically via Git ldflags.
 
 ---
 

@@ -1,0 +1,160 @@
+# Create Demo Recording Workflow
+name: create-demo-recording
+description: Automatically creates asciinema demo recording
+
+stages:
+  - name: setup
+    description: Prepare demo environment
+    steps:
+      - name: check-asciinema
+        type: exec
+        run:
+          - bash
+          - -c
+          - |
+            if ! command -v asciinema &> /dev/null; then
+              echo "❌ asciinema not installed. Install with: pip install asciinema"
+              exit 1
+            fi
+            echo "✓ asciinema found"
+
+      - name: check-agg
+        type: exec
+        run:
+          - bash
+          - -c
+          - |
+            if ! command -v agg &> /dev/null; then
+              echo "⚠️  agg not installed. Install with: cargo install agg"
+              echo "   (optional - for GIF conversion)"
+            else
+              echo "✓ agg found"
+            fi
+
+      - name: create-docs-dir
+        type: exec
+        run:
+          - mkdir
+          - -p
+          - docs
+
+      - name: build-forge
+        type: exec
+        run:
+          - bash
+          - -c
+          - make build && echo "✓ Forge binary built"
+
+  - name: record-demo
+    description: Record the demo with asciinema
+    steps:
+      - name: create-recording-script
+        type: exec
+        run:
+          - bash
+          - -c
+          - |
+            cat > /tmp/forge_demo_script.sh << 'DEMO_EOF'
+            #!/bin/bash
+            export PS1='$ '
+
+            # Function to show command and execute it
+            run_cmd() {
+              echo "$ $*"
+              sleep 0.3
+              "$@"
+              sleep 1
+            }
+
+            echo "# Forge Demo - Workflow Orchestration Tool"
+            echo ""
+            sleep 1
+
+            echo "# 1. Initialize a new workflow"
+            run_cmd ./bin/forge init my-workflow.yaml
+
+            echo ""
+            echo "# 2. Run the demo workflow"
+            run_cmd ./bin/forge run examples/demo.yaml
+
+            echo ""
+            echo "# 3. Preview execution (dry-run)"
+            run_cmd ./bin/forge dry-run examples/ci-cd.yaml
+
+            echo ""
+            echo "# 4. Check version"
+            run_cmd ./bin/forge version
+
+            echo ""
+            echo "# Done! 🎉"
+            sleep 1
+
+            DEMO_EOF
+            chmod +x /tmp/forge_demo_script.sh
+            echo "✓ Recording script created"
+            echo "✓ Recording script created"
+
+      - name: record-with-asciinema
+        type: exec
+        run:
+          - bash
+          - -c
+          - |
+            echo "🎬 Recording demo..."
+            asciinema rec --idle-time-limit 2 --overwrite docs/demo.cast \
+              --command "bash --noprofile --norc /tmp/forge_demo_script.sh"
+            echo "✓ Recording saved to docs/demo.cast"
+
+  - name: convert
+    description: Convert to GIF (optional)
+    steps:
+      - name: convert-to-gif
+        type: exec
+        run:
+          - bash
+          - -c
+          - |
+            if command -v agg &> /dev/null; then
+              echo "🎨 Converting to GIF..."
+              agg docs/demo.cast docs/demo.gif
+              echo "✓ GIF saved to docs/demo.gif"
+            else
+              echo "⚠️  Skipping GIF conversion (agg not installed)"
+              echo "   Install agg: cargo install agg"
+            fi
+
+  - name: cleanup
+    description: Clean up temporary files
+    steps:
+      - name: remove-temp-files
+        type: exec
+        run:
+          - bash
+          - -c
+          - |
+            rm -f /tmp/forge_demo_script.sh
+            rm -f my-workflow.yaml
+            echo "✓ Cleanup complete"
+
+      - name: summary
+        type: exec
+        run:
+          - bash
+          - -c
+          - |
+            echo ""
+            echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+            echo "✨ Demo recording complete!"
+            echo ""
+            echo "Files created:"
+            echo "  • docs/demo.cast (asciinema recording)"
+            if [ -f docs/demo.gif ]; then
+              echo "  • docs/demo.gif (animated GIF)"
+            fi
+            echo ""
+            echo "Preview:"
+            echo "  asciinema play docs/demo.cast"
+            echo ""
+            echo "Upload to asciinema.org:"
+            echo "  asciinema upload docs/demo.cast"
+            echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"

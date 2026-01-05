@@ -1,0 +1,64 @@
+# CI/CD Pipeline Example
+name: ci-cd-pipeline
+description: Example CI/CD workflow with multiple stages
+
+stages:
+  - name: lint
+    description: Code quality checks
+    steps:
+      - name: run-linter
+        type: exec
+        run:
+          - echo
+          - "Running golangci-lint..."
+
+      - name: format-check
+        type: exec
+        run:
+          - echo
+          - "Checking code formatting..."
+
+  - name: test
+    description: Run test suite
+    steps:
+      - name: unit-tests
+        type: exec
+        run:
+          - echo
+          - "Running unit tests..."
+
+      - name: integration-tests
+        type: exec
+        run:
+          - echo
+          - "Running integration tests..."
+
+  - name: build
+    description: Build artifacts
+    steps:
+      - name: compile
+        type: exec
+        run:
+          - echo
+          - "Building for linux/amd64..."
+
+      - name: package
+        type: exec
+        run:
+          - echo
+          - "Creating release artifacts..."
+
+  - name: publish
+    description: Publish artifacts
+    steps:
+      - name: docker-push
+        type: exec
+        run:
+          - echo
+          - "Pushing Docker image to registry..."
+
+      - name: create-release
+        type: exec
+        run:
+          - echo
+          - "Creating GitHub release..."

@@ -3,6 +3,7 @@ package cmd
 import (
 	"bytes"
 	"errors"
+	"fmt"
 	"os"
 	"path/filepath"
 	"testing"
@@ -56,8 +57,10 @@ func TestRunWriteTemplate(t *testing.T) {
 				}
 			}
 
+			out := new(bytes.Buffer)
+
 			// Execute
-			err := runWriteTemplate(tt.fileName)
+			err := runWriteTemplate(tt.fileName, out)
 
 			// Verify error
 			if tt.wantErr != nil {
@@ -75,6 +78,12 @@ func TestRunWriteTemplate(t *testing.T) {
 			if err != nil {
 				t.Errorf("runWriteTemplate() unexpected error = %v", err)
 				return
+			}
+
+			// Verify output message
+			expectedMsg := fmt.Sprintf("Template workflow file created: %s\n", tt.wantFileName)
+			if out.String() != expectedMsg {
+				t.Errorf("runWriteTemplate() output = %q, want %q", out.String(), expectedMsg)
 			}
 
 			// Verify file was created
@@ -262,8 +271,11 @@ func TestRunWriteTemplate_EmptyFileName(t *testing.T) {
 	}
 	defer func() { _ = os.Chdir(originalWd) }()
 
+	// output buffer
+	out := new(bytes.Buffer)
+
 	// Empty file name should use default
-	err := runWriteTemplate("")
+	err := runWriteTemplate("", out)
 	if err != nil {
 		t.Errorf("runWriteTemplate(\"\") unexpected error: %v", err)
 	}
@@ -294,7 +306,11 @@ func TestRunWriteTemplate_PermissionError(t *testing.T) {
 	}
 
 	targetFile := filepath.Join(readOnlyDir, "workflow.yml")
-	err := runWriteTemplate(targetFile)
+
+	// output buffer
+	out := new(bytes.Buffer)
+
+	err := runWriteTemplate(targetFile, out)
 
 	// Should get write failed error
 	if err == nil {

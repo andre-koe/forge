@@ -1,0 +1,92 @@
+# Demo Workflow
+name: demo-workflow
+description: Demo workflow showcasing Forge capabilities
+
+stages:
+  - name: preparation
+    description: Setup and validation
+    steps:
+      - name: welcome
+        type: exec
+        run:
+          - echo
+          - "🔨 Forge Workflow Demo"
+
+      - name: check-environment
+        type: exec
+        run:
+          - echo
+          - "✓ Checking environment..."
+
+      - name: wait
+        type: sleep
+        seconds: 1
+
+  - name: build
+    description: Simulate a build process
+    steps:
+      - name: compile
+        type: exec
+        run:
+          - echo
+          - "📦 Compiling application..."
+
+      - name: build-time
+        type: sleep
+        seconds: 2
+
+      - name: build-complete
+        type: exec
+        run:
+          - echo
+          - "✓ Build completed successfully"
+
+  - name: test
+    description: Run tests
+    steps:
+      - name: unit-tests
+        type: exec
+        run:
+          - echo
+          - "🧪 Running unit tests..."
+
+      - name: test-execution
+        type: sleep
+        seconds: 1
+
+      - name: test-results
+        type: exec
+        run:
+          - echo
+          - "✓ All tests passed (42 tests, 0 failures)"
+
+  - name: deploy
+    description: Deploy the application
+    steps:
+      - name: deployment-start
+        type: exec
+        run:
+          - echo
+          - "🚀 Deploying to production..."
+
+      - name: deploy-wait
+        type: sleep
+        seconds: 2
+
+      - name: deployment-complete
+        type: exec
+        run:
+          - echo
+          - "✓ Deployment successful!"
+
+      - name: summary
+        type: exec
+        run:
+          - echo
+          - "━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+      - name: final-message
+        type: exec
+        run:
+          - echo
+          - "✨ Workflow completed successfully!"
