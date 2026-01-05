@@ -5,7 +5,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/andre-koeniger1997/forge/pkg/version"
+	"github.com/andre-koe/forge/pkg/version"
 )
 
 func TestRunVersion(t *testing.T) {

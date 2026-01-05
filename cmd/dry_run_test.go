@@ -7,8 +7,8 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/andre-koeniger1997/forge/internal/dsl"
-	"github.com/andre-koeniger1997/forge/internal/runner"
+	"github.com/andre-koe/forge/internal/dsl"
+	"github.com/andre-koe/forge/internal/runner"
 )
 
 func TestRunDryRun(t *testing.T) {

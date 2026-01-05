@@ -4,7 +4,7 @@
 
 # Variablen
 BINARY_NAME := forge
-MODULE := github.com/andre-koeniger1997/forge
+MODULE := github.com/andre-koe/forge
 MAIN_PATH := ./cmd/forge
 BUILD_DIR := bin
 COVERAGE_DIR := coverage

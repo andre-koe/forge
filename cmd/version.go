@@ -7,7 +7,7 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/andre-koeniger1997/forge/pkg/version"
+	"github.com/andre-koe/forge/pkg/version"
 	"github.com/spf13/cobra"
 )
 

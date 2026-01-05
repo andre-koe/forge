@@ -8,7 +8,7 @@ import (
 	"os/exec"
 	"time"
 
-	"github.com/andre-koeniger1997/forge/internal/dsl"
+	"github.com/andre-koe/forge/internal/dsl"
 )
 
 // Options for configuring the Runner

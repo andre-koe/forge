@@ -7,7 +7,7 @@ import (
 	"errors"
 	"os"
 
-	"github.com/andre-koeniger1997/forge/internal/dsl"
+	"github.com/andre-koe/forge/internal/dsl"
 	"github.com/spf13/cobra"
 )
 

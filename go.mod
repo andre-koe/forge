@@ -1,6 +1,6 @@
 go 1.24
 
-module github.com/andre-koeniger1997/forge
+module github.com/andre-koe/forge
 
 require (
 	github.com/goccy/go-yaml v1.19.1

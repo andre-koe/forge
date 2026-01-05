@@ -35,7 +35,7 @@ Be respectful and constructive. We're all here to build something useful togethe
    ```
 3. Add the upstream repository:
    ```bash
-   git remote add upstream https://github.com/andre-koeniger1997/forge.git
+   git remote add upstream https://github.com/andre-koe/forge.git
    ```
 4. Install dependencies:
    ```bash

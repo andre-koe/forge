@@ -128,7 +128,7 @@ jobs:
             EXT=""
           fi
           CGO_ENABLED=0 go build -trimpath \
-            -ldflags "-s -w -X github.com/andre-koeniger1997/forge/cmd.Version=${GITHUB_REF_NAME} -X github.com/andre-koeniger1997/forge/cmd.GitCommit=${GITHUB_SHA::7} -X github.com/andre-koeniger1997/forge/cmd.BuildTime=$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+            -ldflags "-s -w -X github.com/andre-koe/forge/cmd.Version=${GITHUB_REF_NAME} -X github.com/andre-koe/forge/cmd.GitCommit=${GITHUB_SHA::7} -X github.com/andre-koe/forge/cmd.BuildTime=$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
             -o bin/forge-${{ matrix.os }}-${{ matrix.arch }}${EXT} ./cmd/forge
 
       - name: Upload artifacts

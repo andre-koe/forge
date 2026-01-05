@@ -6,7 +6,7 @@ package cmd
 import (
 	"io"
 
-	"github.com/andre-koeniger1997/forge/internal/runner"
+	"github.com/andre-koe/forge/internal/runner"
 	"github.com/spf13/cobra"
 )
 
