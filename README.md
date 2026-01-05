@@ -43,14 +43,35 @@ make build
 
 ## Quickstart
 
-### 1) Build (locally)
+### Installation
+
+#### Using Docker
+
+```bash
+# Pull the latest image
+docker pull ghcr.io/andre-koe/forge:latest
+
+# Run with a workflow
+docker run -v $(pwd):/workspace ghcr.io/andre-koe/forge:latest run /workspace/workflow.yaml
+
+# Alias for convenience
+alias forge='docker run -v $(pwd):/workspace ghcr.io/andre-koe/forge:latest'
+```
+
+#### Build from source
 
 ```bash
 make build
 ```
 The binary will be in `bin/forge`.
 
-### 2) Initialize a workflow project
+#### Install with Go
+
+```bash
+go install github.com/andre-koe/forge/cmd/forge@latest
+```
+
+### 1) Initialize a workflow project
 
 ```bash
 ./bin/forge init
@@ -84,9 +105,20 @@ stages:
 
 ```
 
-### 3) Run a workflow
+### 2) Run a workflow
 
 ```bash
+# Local binary
+./bin/forge run workflow.yaml
+
+# Docker
+docker run -v $(pwd):/workspace ghcr.io/andre-koe/forge:latest run /workspace/workflow.yaml
+
+# Installed via go install
+forge run workflow.yaml
+```
+
+### 3) Dry-run (preview execution)
 ./bin/forge run ./workflow.yml
 ```
 
