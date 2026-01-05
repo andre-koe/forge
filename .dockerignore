@@ -1,8 +1,13 @@
 .git
 .github
+.vscode
+.idea
 bin
 coverage
 *.md
+!README.md
+!LICENSE
+.DS_Store
 .vscode
 .idea
 .DS_Store
