@@ -24,6 +24,7 @@ Be respectful and constructive. We're all here to build something useful togethe
 - Go 1.23 or higher
 - Git
 - Make (optional, but recommended)
+- Python 3.7+ (for pre-commit hooks)
 
 ### Setting Up Your Development Environment
 
@@ -40,6 +41,37 @@ Be respectful and constructive. We're all here to build something useful togethe
 4. Install dependencies:
    ```bash
    go mod download
+   ```
+
+5. Install development tools:
+   ```bash
+   # Install goimports for automatic import formatting
+   go install golang.org/x/tools/cmd/goimports@latest
+
+   # Install golangci-lint for linting
+   go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+
+   # Install pre-commit hooks framework
+   pip install pre-commit
+   # or on Ubuntu/Debian: sudo apt install pre-commit
+   # or on macOS: brew install pre-commit
+   ```
+
+6. Set up pre-commit hooks:
+   ```bash
+   pre-commit install
+   ```
+
+   This will automatically run code quality checks before each commit. The hooks include:
+   - `go fmt` - Code formatting
+   - `go imports` - Import organization
+   - `go vet` - Static analysis
+   - YAML validation
+   - Trailing whitespace removal
+
+   To run hooks manually without committing:
+   ```bash
+   pre-commit run --all-files
    ```
 
 ## Development Workflow

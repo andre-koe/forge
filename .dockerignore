@@ -1,0 +1,13 @@
+.git
+.github
+bin
+coverage
+*.md
+.vscode
+.idea
+.DS_Store
+Makefile
+*.test
+*.prof
+workflow.yaml
+workflows

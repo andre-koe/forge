@@ -1,0 +1,17 @@
+# Default owner for everything
+* @andre-koe
+
+# CLI commands
+/cmd/ @andre-koe
+
+# Core internal packages
+/internal/ @andre-koe
+
+# Configuration
+/config/ @andre-koe
+
+# CI/CD and workflows
+/.github/ @andre-koe
+
+# Documentation
+*.md @andre-koe
