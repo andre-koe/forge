@@ -36,13 +36,6 @@ This repository intentionally starts small and favors correctness over features.
 
 ## Quickstart
 
-### 1) Build (locally)
-
-```bash
-make build
-
-## Quickstart
-
 ### Installation
 
 #### Using Docker
@@ -63,6 +56,7 @@ alias forge='docker run -v $(pwd):/workspace ghcr.io/andre-koe/forge:latest'
 ```bash
 make build
 ```
+
 The binary will be in `bin/forge`.
 
 #### Install with Go
@@ -119,15 +113,16 @@ forge run workflow.yaml
 ```
 
 ### 3) Dry-run (preview execution)
-./bin/forge run ./workflow.yml
+
+```bash
+bin/forge run ./workflow.yml
 ```
 
-### 4) Dry-run (simulate)
+### 4) Dry-run (simulate)te)
 
 ```bash
 ./bin/forge dry-run ./workflow.yml
 ```
-
 prints the execution plan without running steps
 
 ---
