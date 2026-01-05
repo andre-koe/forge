@@ -47,5 +47,5 @@ coverage/
 .env.*
 
 # Forge specific
-workflows/
+/workflows/
 workflow.yaml
