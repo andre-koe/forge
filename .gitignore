@@ -1,0 +1,51 @@
+# Go build output
+/bin/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+
+# Go modules
+vendor/
+
+# Dependency directories (remove the comment below if you use Go modules)
+# Gopkg.lock
+# Gopkg.toml
+
+# IDEs and editors
+# VSCode
+.vscode/
+.code-workspace
+
+# GoLand
+.idea/
+*.iml
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Test, coverage, and debug
+*.coverprofile
+*.test
+*.prof
+coverage/
+
+# Logs
+*.log
+
+# Misc
+*.swp
+*.swo
+*~
+
+# Env files
+.env
+.env.*
+
+# Forge specific
+workflows/
+workflow.yaml
