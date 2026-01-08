@@ -238,7 +238,7 @@ Want to add a demo to this README? Here's how:
 
 ## Roadmap 
 
-### Next steps (v0.1.x)
+### Next steps (v0.2.x)
 
 Add first class variable support via cli flags and variables blocks in workflow.yaml files
 
