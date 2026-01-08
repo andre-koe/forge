@@ -124,10 +124,10 @@ forge run workflow.yaml
 ### 3) Dry-run (preview execution)
 
 ```bash
-bin/forge run ./workflow.yml
+bin/forge dry-run ./workflow.yml
 ```
 
-### 4) Dry-run (simulate)te)
+### 4) Dry-run (simulate)
 
 ```bash
 ./bin/forge dry-run ./workflow.yml
@@ -236,7 +236,17 @@ Want to add a demo to this README? Here's how:
 
 ---
 
-## Roadmap (high level)
+## Roadmap 
+
+### Next steps (v0.1.x)
+
+Add first class variable support via cli flags and variables blocks in workflow.yaml files
+
+Add conditional step and stage execution
+
+Add metadata to workflow files to print information to the console.
+
+### (high level)
 
 Deterministic execution plans
 
